@@ -2,8 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
-    public class ShuntingYardSimpleMathCalculator : ShuntingYardBaseCalculator<int, string>
+    public class SYMathCalculator : SYBaseCalculator<int, string>
     {
         Dictionary<char, PrecedensAssociativity> Oprs = new Dictionary<char, PrecedensAssociativity>()
                                                             {
@@ -11,31 +12,31 @@
                                                                         '+',
                                                                         new PrecedensAssociativity(
                                                                             2,
-                                                                            PrecedensAssociativity.Asso.Left)
+                                                                            Associativity.Left)
                                                                     },
                                                                     {
                                                                         '-',
                                                                         new PrecedensAssociativity(
                                                                             2,
-                                                                            PrecedensAssociativity.Asso.Left)
+                                                                            Associativity.Left)
                                                                     },
                                                                     {
                                                                         '*',
                                                                         new PrecedensAssociativity(
                                                                             3,
-                                                                            PrecedensAssociativity.Asso.Left)
+                                                                            Associativity.Left)
                                                                     },
                                                                     {
                                                                         '/',
                                                                         new PrecedensAssociativity(
                                                                             3,
-                                                                            PrecedensAssociativity.Asso.Left)
+                                                                            Associativity.Left)
                                                                     },
                                                                     {
                                                                         '^',
                                                                         new PrecedensAssociativity(
                                                                             4,
-                                                                            PrecedensAssociativity.Asso.Right)
+                                                                            Associativity.Right)
                                                                     },
                                                             };
 
@@ -83,7 +84,13 @@
             return (char?)input[0];
         }
 
-        protected override PrecedensAssociativity.Asso Association(char opr)
+        protected override List<string> Split(object expression)
+        {
+            List<string> tokens = ((string)expression).Split(' ').ToList();
+            return tokens;
+        }
+
+        protected override Associativity Association(char opr)
         {
             if (!Oprs.ContainsKey(opr)) throw new Exception("Wrong operator!!");
             return Oprs[opr].Associativity;

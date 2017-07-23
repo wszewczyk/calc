@@ -4,10 +4,11 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public abstract class ShuntingYardBaseCalculator<TResult, TInput> : ICalculator<TResult, TInput>
+    public abstract class SYBaseCalculator<TResult, TInput> : ICalculator<TResult>
     {
-        public TResult Execute(List<TInput> InputList)
+        public TResult Execute(object expression)
         {
+            List<TInput> InputList = this.Split(expression);
             Stack<object> inter = new Stack<object>();
             Stack<char> opr = new Stack<char>();
             foreach (TInput input in InputList)
@@ -20,9 +21,9 @@
                     {
                         char ot = opr.Peek();
                         if (IsOperator(ot)
-                            && ((Association((char)o) == PrecedensAssociativity.Asso.Left
+                            && ((Association((char)o) == Associativity.Left
                                  && Precedence((char)o, ot) <= 0)
-                                || (Association((char)o) == PrecedensAssociativity.Asso.Right
+                                || (Association((char)o) == Associativity.Right
                                     && Precedence((char)o, ot) < 0))) inter.Push(opr.Pop());
                         else break;
                     }
@@ -90,8 +91,9 @@
         protected abstract TResult TypecastIdentifier(TInput input);
         protected abstract bool IsIdentifier(TInput input);
         protected abstract int Precedence(char opr1, char opr2);
-        protected abstract PrecedensAssociativity.Asso Association(char opr);
+        protected abstract Associativity Association(char opr);
         protected abstract bool IsOperator(char? Opr);
         protected abstract char? TypecastOperator(TInput opr);
+        protected abstract List<TInput> Split(object expression);
     }
 }

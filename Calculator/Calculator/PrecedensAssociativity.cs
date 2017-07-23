@@ -2,19 +2,13 @@
 {
     public struct PrecedensAssociativity
     {
-        public Asso Associativity;
+        public Associativity Associativity;
         public int Precedens;
 
-        public PrecedensAssociativity(int p, Asso a)
+        public PrecedensAssociativity(int p, Associativity a)
         {
             Precedens = p;
             Associativity = a;
-        }
-
-        public enum Asso
-        {
-            Left,
-            Right
         }
     }
 }

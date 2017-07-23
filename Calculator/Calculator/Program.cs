@@ -10,13 +10,13 @@
         {
             {
                 ICalculator<int, string> calc = new ShuntingYardSimpleMathCalculator();
-                string s = System.Console.ReadLine();
-                Console.WriteLine("input: {0}", s);
+                string s = Console.ReadLine();
+                Console.WriteLine($"input: {s}");
                 Console.WriteLine();
                 List<string> ss = s.Split(' ').ToList();
                 
                 double res = calc.Execute(ss);
-                Console.WriteLine("Result: {0}", res);
+                Console.WriteLine($"Result: {res}");
                 Console.ReadKey();
             }
         }

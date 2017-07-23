@@ -12,7 +12,7 @@
             Stack<char> opr = new Stack<char>();
             foreach (TInput input in InputList)
             {
-                if (IsNoise(input)) continue;
+                if (IsForbidden(input)) continue;
                 char? o = TypecastOperator(input);
                 if (IsOperator(o))
                 {
@@ -28,6 +28,11 @@
                     }
 
                     opr.Push((char)o);
+                }
+                else if (IsIdentifier(input))
+                {
+                    inter.Push(input);
+
                 }
                 else if (input.ToString() == "(")
                 {
@@ -50,13 +55,9 @@
                     if (!pe) throw new Exception("No Left (");
                     opr.Pop();
                 }
-                else if (IsIdentifier(input))
-                {
-                    inter.Push(input);
-                }
                 else
                 {
-                    if (!IsNoise(input)) throw new Exception("Unknowen token");
+                    if (!IsForbidden(input)) throw new Exception("Undefined token");
                 }
             }
 
@@ -84,7 +85,7 @@
             return var.Peek();
         }
 
-        protected abstract bool IsNoise(TInput input);
+        protected abstract bool IsForbidden(TInput input);
         protected abstract TResult Evaluate(TResult result1, char opr, TResult result2);
         protected abstract TResult TypecastIdentifier(TInput input);
         protected abstract bool IsIdentifier(TInput input);

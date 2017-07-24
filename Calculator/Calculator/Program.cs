@@ -1,21 +1,18 @@
 ﻿namespace Calculator
 {
-    using System;
+    using Autofac;
+
+    using Calculator.IoC;
 
     class Program
     {
         static void Main(string[] args)
         {
-            {
-                ICalculator<int> calc = new SYMathCalculator();
-                string s = Console.ReadLine();
-                Console.WriteLine($"input: {s}");
-                Console.WriteLine();
-                
-                double res = calc.Execute(s);
-                Console.WriteLine($"Result: {res}");
-                Console.ReadKey();
-            }
+            var container = IocConfig.Configure();
+
+            var application = container.Resolve<ApplicationLogic>();
+
+            application.Run();
         }
     }
 }

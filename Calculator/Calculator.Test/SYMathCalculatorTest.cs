@@ -2,6 +2,8 @@
 {
     using System;
 
+    using Calculator.Command.CommandSYMath;
+
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
@@ -13,7 +15,7 @@
             int res = 5;
             string formula = "3 + 2";
 
-            ICalculator<int> calc = new SYMathCalculator();
+            ICalculator<int> calc = new SYMathCalculator(new SYMathCommandReciver());
 
             int resFromCalc = calc.Execute(formula);
 
@@ -26,7 +28,7 @@
             int res = 5;
             string formula = "a + 2";
 
-            ICalculator<int> calc = new SYMathCalculator();
+            ICalculator<int> calc = new SYMathCalculator(new SYMathCommandReciver());
 
             try
             {

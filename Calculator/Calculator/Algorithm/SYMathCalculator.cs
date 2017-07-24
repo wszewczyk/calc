@@ -4,39 +4,55 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    using Calculator.Command;
+    using Calculator.Command.CommandSYMath;
+
     public class SYMathCalculator : SYBaseCalculator<int, string>
     {
+        private ASYCommand command;
+
+        private AddCommand addCommand;
+
+        private SubtractCommand subtractCommand;
+
+        private MultiplyCommand multiplyCommand;
+
+        private DivCommand divCommand;
+
+        private PowCommand powCommand;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SYMathCalculator"/> class.
+        /// </summary>
+        /// <param name="reciever">
+        /// The reciever.
+        /// </param>
+        public SYMathCalculator(ISYReciever reciever)
+        {
+            addCommand = new AddCommand(reciever);
+            subtractCommand = new SubtractCommand(reciever);
+            multiplyCommand = new MultiplyCommand(reciever);
+            divCommand = new DivCommand(reciever);
+            powCommand = new PowCommand(reciever);
+        }
+
         Dictionary<char, PrecedensAssociativity> Oprs = new Dictionary<char, PrecedensAssociativity>()
                                                             {
                                                                     {
-                                                                        '+',
-                                                                        new PrecedensAssociativity(
-                                                                            2,
-                                                                            Associativity.Left)
+                                                                        '+', new PrecedensAssociativity(2, Associativity.Left)
                                                                     },
                                                                     {
-                                                                        '-',
-                                                                        new PrecedensAssociativity(
-                                                                            2,
-                                                                            Associativity.Left)
+                                                                        '-', new PrecedensAssociativity(2, Associativity.Left)
                                                                     },
                                                                     {
-                                                                        '*',
-                                                                        new PrecedensAssociativity(
-                                                                            3,
-                                                                            Associativity.Left)
+                                                                        '*', new PrecedensAssociativity(3, Associativity.Left)
                                                                     },
                                                                     {
-                                                                        '/',
-                                                                        new PrecedensAssociativity(
-                                                                            3,
-                                                                            Associativity.Left)
+                                                                        '/', new PrecedensAssociativity(3, Associativity.Left)
                                                                     },
                                                                     {
                                                                         '^',
-                                                                        new PrecedensAssociativity(
-                                                                            4,
-                                                                            Associativity.Right)
+                                                                        new PrecedensAssociativity(4, Associativity.Right)
                                                                     },
                                                             };
 
@@ -45,15 +61,20 @@
             switch (opr)
             {
                 case '+':
-                    return (int)result1 + result2;
+                    this.command = this.addCommand;
+                    return this.command.Execute(result1, result2);
                 case '-':
-                    return (int)result1 - result2;
+                    this.command = this.subtractCommand;
+                    return this.command.Execute(result1, result2);
                 case '*':
-                    return (int)result1 * result2;
+                    this.command = this.multiplyCommand;
+                    return this.command.Execute(result1, result2);
                 case '/':
-                    return (int)result1 / result2;
+                    this.command = this.divCommand;
+                    return this.command.Execute(result1, result2);
                 case '^':
-                    return (int)Math.Pow(result1, result2);
+                    this.command = this.powCommand;
+                    return this.command.Execute(result1, result2);
             }
 
             throw new Exception("Wrong operator!");
@@ -124,6 +145,7 @@
                         res = true;
                     }
                 }
+
                 return res;
             }
         }

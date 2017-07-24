@@ -48,10 +48,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationLogic.cs" />
+    <Compile Include="Command\ASYCommand.cs" />
+    <Compile Include="Command\CommandSYMath\SYMathCommandReciver.cs" />
+    <Compile Include="Command\CommandSYMath\SYMathCommands.cs" />
+    <Compile Include="Command\ISYReciever.cs" />
     <Compile Include="Core\Enums\Associativity.cs" />
     <Compile Include="Core\ICalculator.cs" />
     <Compile Include="IoC\IocConfig.cs" />
-    <Compile Include="PrecedensAssociativity.cs" />
+    <Compile Include="Core\PrecedensAssociativity.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Algorithm\SYBaseCalculator.cs" />
@@ -61,6 +65,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

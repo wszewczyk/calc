@@ -19,5 +19,27 @@
 
             Assert.AreEqual(res, resFromCalc);
         }
+
+        [TestMethod]
+        public void Execute_throws_exception_with_bad_formula()
+        {
+            int res = 5;
+            string formula = "a + 2";
+
+            ICalculator<int> calc = new SYMathCalculator();
+
+            try
+            {
+                int resFromCalc = calc.Execute(formula);
+                Assert.Fail("Exception not cought");
+            }
+            catch (Exception e)
+            {
+                if (e.Message != "Bad formula")
+                {
+                    Assert.Fail("Bad exception");
+                }
+            }
+        }
     }
 }

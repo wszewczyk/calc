@@ -13,7 +13,7 @@
             Stack<char> opr = new Stack<char>();
             foreach (TInput input in InputList)
             {
-                if (IsForbidden(input)) continue;
+                if (IsForbidden(input)) throw new Exception("Bad formula");
                 char? o = TypecastOperator(input);
                 if (IsOperator(o))
                 {

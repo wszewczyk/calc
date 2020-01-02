@@ -12,7 +12,7 @@
     public interface ISYReciever
     {
         void SetAction(SY_OPERATION_LIST action);
-        int GetResult(int x, int y);
+        double GetResult(double x, double y);
     }
 
 }

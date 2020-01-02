@@ -11,34 +11,31 @@
             currentAction = action;
         }
 
-        public int GetResult(int x, int y)
+        public double GetResult(double x, double y)
         {
-            int result;
-            if (currentAction == SY_OPERATION_LIST.ADD)
-            {
-                result = x + y;
+            double result;
 
-            }
-            else if (currentAction == SY_OPERATION_LIST.MULTIPLY)
+            switch (currentAction)
             {
-                result = x * y;
+                case SY_OPERATION_LIST.ADD:
+                    result = x + y;
+                    break;
+                case SY_OPERATION_LIST.MULTIPLY:
+                    result = x * y;
+                    break;
+                case SY_OPERATION_LIST.SUBTRACT:
+                    result = x - y;
+                    break;
+                case SY_OPERATION_LIST.DIV:
+                    result = x / y;
+                    break;
+                case SY_OPERATION_LIST.POW:
+                    result = (double)Math.Pow(x, y);
+                    break;
+                default:
+                    throw new Exception("Unknown operation");
             }
-            else if (this.currentAction == SY_OPERATION_LIST.SUBTRACT)
-            {
-                result = x - y;
-            }
-            else if (this.currentAction == SY_OPERATION_LIST.DIV)
-            {
-                result = x / y;
-            }
-            else if (this.currentAction == SY_OPERATION_LIST.POW)
-            {
-                result = (int)Math.Pow(x, y);
-            }
-            else
-            {
-                throw new Exception("Unknown operation");
-            }
+
             return result;
         }
     }

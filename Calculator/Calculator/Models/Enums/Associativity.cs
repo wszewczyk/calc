@@ -1,4 +1,4 @@
-﻿namespace Calculator
+﻿namespace Calculator.Models.Enums
 {
     public enum Associativity
     {

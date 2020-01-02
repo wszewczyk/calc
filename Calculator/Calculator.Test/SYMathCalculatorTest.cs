@@ -1,4 +1,7 @@
-﻿namespace Calculator.Test
+﻿using Calculator.Models;
+using Calculator.Services.Algorithm;
+
+namespace Calculator.Test
 {
     using System;
 
@@ -15,9 +18,9 @@
             int res = 5;
             string formula = "3 + 2";
 
-            ICalculator<int> calc = new SYMathCalculator(new SYMathCommandReciver());
+            ICalculator<double> calc = new SYMathCalculator(new SYMathCommandReciver());
 
-            int resFromCalc = calc.Execute(formula);
+            double resFromCalc = calc.Execute(formula);
 
             Assert.AreEqual(res, resFromCalc);
         }
@@ -28,11 +31,11 @@
             int res = 5;
             string formula = "a + 2";
 
-            ICalculator<int> calc = new SYMathCalculator(new SYMathCommandReciver());
+            ICalculator<double> calc = new SYMathCalculator(new SYMathCommandReciver());
 
             try
             {
-                int resFromCalc = calc.Execute(formula);
+                double resFromCalc = calc.Execute(formula);
                 Assert.Fail("Exception not cought");
             }
             catch (Exception e)

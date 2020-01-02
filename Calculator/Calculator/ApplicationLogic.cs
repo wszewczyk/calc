@@ -1,25 +1,29 @@
-﻿namespace Calculator
+﻿using Calculator.Models;
+
+namespace Calculator
 {
     using System;
 
     public class ApplicationLogic
     {
-        private ICalculator<int> calc;
+        private readonly ICalculator<double> _calc;
 
-        public ApplicationLogic(ICalculator<int> calc)
+        public ApplicationLogic(ICalculator<double> calc)
         {
-            this.calc = calc;
+            this._calc = calc;
         }
 
         public void Run()
         {
-            string s = Console.ReadLine();
-            Console.WriteLine($"input: {s}");
-            Console.WriteLine();
+            while (true)
+            {
+                string s = Console.ReadLine();
+                Console.WriteLine($"input: {s}");
+                Console.WriteLine();
 
-            double res = this.calc.Execute(s);
-            Console.WriteLine($"Result: {res}");
-            Console.ReadKey();
+                double res = this._calc.Execute(s);
+                Console.WriteLine($"Result: {res}");
+            }
         }
     }
 }

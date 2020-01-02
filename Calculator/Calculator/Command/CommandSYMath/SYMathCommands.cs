@@ -7,7 +7,7 @@
         {
 
         }
-        public override int Execute(int x, int y)
+        public override double Execute(double x, double y)
         {
             reciever.SetAction(SY_OPERATION_LIST.ADD);
             return reciever.GetResult(x, y);
@@ -21,7 +21,7 @@
         {
 
         }
-        public override int Execute(int x, int y)
+        public override double Execute(double x, double y)
         {
             reciever.SetAction(SY_OPERATION_LIST.SUBTRACT);
             return reciever.GetResult(x, y);
@@ -35,7 +35,7 @@
         {
 
         }
-        public override int Execute(int x, int y)
+        public override double Execute(double x, double y)
         {
             reciever.SetAction(SY_OPERATION_LIST.MULTIPLY);
             return reciever.GetResult(x, y);
@@ -49,7 +49,7 @@
         {
 
         }
-        public override int Execute(int x, int y)
+        public override double Execute(double x, double y)
         {
             reciever.SetAction(SY_OPERATION_LIST.DIV);
             return reciever.GetResult(x, y);
@@ -63,7 +63,7 @@
         {
 
         }
-        public override int Execute(int x, int y)
+        public override double Execute(double x, double y)
         {
             reciever.SetAction(SY_OPERATION_LIST.POW);
             return reciever.GetResult(x, y);

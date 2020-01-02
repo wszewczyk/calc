@@ -1,4 +1,6 @@
-﻿namespace Calculator
+﻿using Calculator.Models.Enums;
+
+namespace Calculator.Models
 {
     public struct PrecedensAssociativity
     {

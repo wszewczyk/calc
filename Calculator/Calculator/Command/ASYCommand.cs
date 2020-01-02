@@ -9,6 +9,6 @@
             reciever = rec;
         }
 
-        public abstract int Execute(int x, int y);
+        public abstract double Execute(double x, double y);
     }
 }

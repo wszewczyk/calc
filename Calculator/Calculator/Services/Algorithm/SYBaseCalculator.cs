@@ -1,17 +1,18 @@
-﻿namespace Calculator
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using Calculator.Models;
+using Calculator.Models.Enums;
 
+namespace Calculator.Services.Algorithm
+{
     public abstract class SYBaseCalculator<TResult, TInput> : ICalculator<TResult>
     {
         public TResult Execute(object expression)
         {
-            List<TInput> InputList = this.Split(expression);
+            List<TInput> inputList = this.Split(expression);
             Stack<object> inter = new Stack<object>();
             Stack<char> opr = new Stack<char>();
-            foreach (TInput input in InputList)
+            foreach (TInput input in inputList)
             {
                 if (IsForbidden(input)) throw new Exception("Bad formula");
                 char? o = TypecastOperator(input);
@@ -58,7 +59,7 @@
                 }
                 else
                 {
-                    if (!IsForbidden(input)) throw new Exception("Undefined token");
+                    if (IsForbidden(input)) throw new Exception("Undefined token");
                 }
             }
 
@@ -75,11 +76,11 @@
                     var.Push(TypecastIdentifier((TInput)o));
                 }
 
-                if (o.GetType() == typeof(char))
+                if (o is char c)
                 {
-                    TResult r = var.Pop();
-                    TResult l = var.Pop();
-                    var.Push(Evaluate(l, (char)o, r));
+                    var r = var.Pop();
+                    var l = var.Pop();
+                    var.Push(Evaluate(l, c, r));
                 }
             }
 
@@ -90,7 +91,7 @@
         protected abstract TResult Evaluate(TResult result1, char opr, TResult result2);
         protected abstract TResult TypecastIdentifier(TInput input);
         protected abstract bool IsIdentifier(TInput input);
-        protected abstract int Precedence(char opr1, char opr2);
+        protected abstract double Precedence(char opr1, char opr2);
         protected abstract Associativity Association(char opr);
         protected abstract bool IsOperator(char? Opr);
         protected abstract char? TypecastOperator(TInput opr);

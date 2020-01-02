@@ -1,4 +1,7 @@
-﻿namespace Calculator.IoC
+﻿using Calculator.Models;
+using Calculator.Services.Algorithm;
+
+namespace Calculator.IoC
 {
     using Autofac;
 
@@ -11,7 +14,7 @@
         {
             var builder = new ContainerBuilder();
             builder.RegisterType<ApplicationLogic>();
-            builder.RegisterType<SYMathCalculator>().As<ICalculator<int>>();
+            builder.RegisterType<SYMathCalculator>().As<ICalculator<double>>();
             builder.RegisterType<SYMathCommandReciver>().As<ISYReciever>();
             var container = builder.Build();
             return container;
